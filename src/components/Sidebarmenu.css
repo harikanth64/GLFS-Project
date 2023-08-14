@@ -1,0 +1,9 @@
+.bs-body-bg {
+    background-color: #f8f8fa;
+}
+.nav-pills li a:hover {
+    background-color:  #eff0f7;
+}
+.nav-link.active {
+    background-color:  #d0d3df;
+}
