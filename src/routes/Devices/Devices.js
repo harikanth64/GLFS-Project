@@ -8,10 +8,9 @@ import { Outlet } from 'react-router-dom'
 
 
 function Devices() {
-  <h1>This is Devices page</h1>
   return (
     <>
-      <div className="mainbody">
+      <div className='container-sm'>
         <form className="row g-3">
           <div className="col-md-3">
             <label for="inputEmail4" className="form-label">Email</label>

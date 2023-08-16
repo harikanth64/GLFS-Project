@@ -5,19 +5,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container {
-    display: flex;
-}
-
-.main {
-    display: flex;
-
-}
 
 .mainbody {
-    display: flex;
+    display: block;
+    height: 100vh;
+    max-width: 70%;
     margin-left:250px;
     padding-left: 10px;
+    padding-right: 50px;
     padding-top: 5px;
     
 }
@@ -29,6 +24,12 @@
     background-color: #f8f8fa;
     overflow: hidden;
     transition: all 0.4s;
+}
+
+.device-nav a {
+    display: inline;
+    text-decoration: none;
+    padding: 5px 20px;
 }
 
 .top_section {

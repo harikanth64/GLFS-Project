@@ -17,16 +17,17 @@ function App() {
       <Routes>
         {/* Use this type of neste Routing if there a shared Layout */}
 
-
-        <Route element={<BodyLayout />}>  
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/user" element={<Test />} />
+        {/* Using relative paths */}
+        <Route path="/" element={<BodyLayout />}>  
+          <Route index element={<Dashboard />} />
+          <Route path="test" element={<Test />} />
+          <Route path="user" element={<Test />} />
         
           {/* Devices Route */}
-          <Route element={<DeviceLayout />}>  
-            <Route path="/devices" element={<Devices />} />
-            <Route path="/devices/3par" element={<Par3 />} />
+          <Route path="devices" element={<DeviceLayout />}>  
+            <Route index element={<Devices />} />
+            <Route path="3par" element={<Par3 />} />
+            <Route path="3par" element={<Par3 />} />
           </Route>
         </Route>
 

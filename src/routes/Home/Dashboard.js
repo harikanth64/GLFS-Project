@@ -3,7 +3,7 @@ import React from 'react'
 
 function Dashboard() {
   return (
-    <div className='mainbody'>
+    <div>
       <h1>Dashboard</h1>
       {/* <Outlet /> */}
     </div>

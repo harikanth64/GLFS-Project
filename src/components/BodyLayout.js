@@ -12,11 +12,13 @@ function BodyLayout() {
     return (
         <> 
         <Sidebar />
+        <div className='mainbody'>
         <Header />
         {/* <Navbar /> */}
         <main>
         <Outlet />
-        </main>     
+        </main>
+        </div>
         <Footer />
         </>
     )

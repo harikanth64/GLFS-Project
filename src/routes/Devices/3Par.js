@@ -2,7 +2,7 @@ import React from 'react'
 
 function Par3() {
   return (
-    <div className='mainbody'>
+    <div>
       <h4>3PAR</h4>
     </div>
   )
