@@ -2,8 +2,9 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='mainbody'>
-      <h1>Footer</h1>
+    <div>
+      <h3>Footer</h3>
+      <footer className='footer'> &#169; 2023 Harikanth</footer>
     </div>
   )
 }
