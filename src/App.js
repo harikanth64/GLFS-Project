@@ -8,6 +8,7 @@ import Test from './components/Test';
 import Dashboard from './routes/Home/Dashboard';
 import DashboardLayout from './components/DashboardLayout';
 import Par3 from './routes/Devices/3Par';
+import DeviceLayout from './components/DeviceLayout';
 
 
 function App() {
@@ -22,12 +23,9 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/user" element={<Test />} />
         
-          {/* <Route element={<DashboardLayout />} />
-          <Route path="/dashboard" element={<Dashboard />} /> */}
-
-        {/* <Route element={<DashboardLayout />}>   */}
-          {/* <Route path="/" element={<Dashboard />} /> */}
-          <Route path="/devices" element={<Devices />}>
+          {/* Devices Route */}
+          <Route element={<DeviceLayout />}>  
+            <Route path="/devices" element={<Devices />} />
             <Route path="/devices/3par" element={<Par3 />} />
           </Route>
         </Route>

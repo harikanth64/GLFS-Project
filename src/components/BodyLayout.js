@@ -13,7 +13,7 @@ function BodyLayout() {
         <> 
         <Sidebar />
         <Header />
-        <Navbar />
+        {/* <Navbar /> */}
         <main>
         <Outlet />
         </main>     
