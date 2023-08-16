@@ -9,15 +9,22 @@
     display: flex;
 }
 
-main {
-    width: 100%;
-    padding: 20px;
+.main {
+    display: flex;
 
 }
 
+.mainbody {
+    display: flex;
+    margin-left:250px;
+}
+
 .sidebar {
-    height: 100vh;
+    height: 100%;
     width: 250px;
+    position: absolute;
+    left: 0;
+    top: 0;
     background-color: #f8f8fa;
     overflow: hidden;
     transition: all 0.4s;
@@ -47,6 +54,7 @@ main {
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.4s;
+    text-decoration: none;
 
 }
 

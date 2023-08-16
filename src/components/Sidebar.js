@@ -7,11 +7,11 @@ import { IconContext } from "react-icons";
 import { sidebarData } from "./SidebarData";
 import { Link } from "react-router-dom";
 
-function Sidebar({ children }) {
+function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     return (
-        <div className='container'>
+        <div>
             <div className='sidebar' style={{ width: isOpen ? "250px" : "50px" }} >
                 <div className='top_section'>
                     <h1 style={{ display: isOpen ? "block" : "none" }} className='logo'>GLFS METERING</h1>
@@ -30,7 +30,7 @@ function Sidebar({ children }) {
                     }
                 </div>
             </div>
-            <main>{children}</main>
+            {/* <main>{children}</main> */}
         </div >
     )
 }
