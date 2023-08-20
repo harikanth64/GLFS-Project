@@ -1,5 +1,6 @@
 import './App.css';
 import Sidebar from './components/Sidebar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import Home from './routes/Home';
 import Devices from './routes/Devices/Devices';
@@ -9,6 +10,7 @@ import Dashboard from './routes/Home/Dashboard';
 import DashboardLayout from './components/DashboardLayout';
 import Par3 from './routes/Devices/3Par';
 import DeviceLayout from './components/DeviceLayout';
+import StoreOnce from './routes/Devices/StoreOnce';
 
 
 function App() {
@@ -27,7 +29,7 @@ function App() {
           <Route path="devices" element={<DeviceLayout />}>  
             <Route index element={<Devices />} />
             <Route path="3par" element={<Par3 />} />
-            <Route path="3par" element={<Par3 />} />
+            <Route path="storeonce" element={<StoreOnce />} />
           </Route>
         </Route>
 

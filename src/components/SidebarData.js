@@ -15,17 +15,17 @@ export const SidebarData = [
     {
         name: "Devices",
         icon: <GoServer /> ,
-        path: "/devices"
+        path: "devices"
     },
     {
         name: "Test",
         icon: <LiaToolsSolid />,
-        path: "/test"
+        path: "test"
     },
     {
         name: "Usar",
         icon: <FaRegUserCircle />,
-        path: "/user"
+        path: "user"
     }
 
 ];

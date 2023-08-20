@@ -22,7 +22,7 @@ function Sidebar() {
                 <div className='container-fluid'>
                     {
                         SidebarData.map((val, key) => (
-                            <Link to={val.path} key={key} className='link' activeclassName="active">
+                            <Link to={val.path} key={key} className='link'>
                                 <div className='icon'>{val.icon}</div>
                                 <div style={{ display: isOpen ? "block" : "none" }} className='link_name'>{val.name}</div>
                             </Link>

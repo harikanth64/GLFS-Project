@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Par3() {
+function StoreOnce() {
   return (
     <div className='container'>
-      <h4>3PAR</h4>
+      <h2>StoreOnce</h2>
     </div>
   )
 }
 
-export default Par3
+export default StoreOnce
