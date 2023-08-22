@@ -11,6 +11,8 @@ import DashboardLayout from './components/DashboardLayout';
 import Par3 from './routes/Devices/3Par';
 import DeviceLayout from './components/DeviceLayout';
 import StoreOnce from './routes/Devices/StoreOnce';
+import Hyperv from './routes/Devices/Hyper-v';
+import VMWare from './routes/Devices/VMWare';
 
 
 function App() {
@@ -28,8 +30,10 @@ function App() {
           {/* Devices Route */}
           <Route path="devices" element={<DeviceLayout />}>  
             <Route index element={<Devices />} />
-            <Route path="3par" element={<Par3 />} />
+            <Route path="3par" element={<Par3 title="3PAR"/>} />
             <Route path="storeonce" element={<StoreOnce />} />
+            <Route path="hyper-v" element={<Hyperv />} />
+            <Route path="vmware" element={<VMWare />} />
           </Route>
         </Route>
 

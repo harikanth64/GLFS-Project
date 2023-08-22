@@ -1,7 +1,8 @@
 main {
+    display: block;
     margin-top: 10px;
     margin-bottom: 15px;
-
+    align-self: start;
 }
 
 .mainbody {
@@ -34,7 +35,14 @@ main {
 
 .container {
     padding: 20px;
+    padding-left: 25px;
+    /* float:left; */
+    display: inline-block;
+}
 
+.container form row {
+
+    justify-content: flex-start;
 }
 
 .add-device {
@@ -55,9 +63,6 @@ hr {
     padding: 0;
 }
 
-a:hover {
-    text-decoration: underline;
-}
 
 .topnav {
     overflow: hidden;
