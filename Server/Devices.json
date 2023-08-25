@@ -1,0 +1,91 @@
+{  
+  "devices": [
+    {
+      "deviceName": "PAR3",
+      "deviceFields": [
+        {
+          "id": 1,
+          "type": "PAR3",
+          "ip": "0.0.0.1",
+          "user": "server1",
+          "pwd": "pass.txt",
+          "productNumber": "PAR3XXX01",
+          "serial": "SE001RIAL21"
+        },
+        {
+          "id": 2,
+          "type": "PAR3",
+          "ip": "0.0.0.2",
+          "user": "server2",
+          "pwd": "pass.txt",
+          "productNumber": "PAR3XXX01",
+          "serial": "SE001RIAL22"
+        },
+        {
+          "id": 3,
+          "type": "PAR3",
+          "ip": "0.0.0.3",
+          "user": "server3",
+          "pwd": "pass2.txt",
+          "productNumber": "PAR3XXX01",
+          "serial": "SE001RIAL23"
+        },
+        {
+          "id": 4,
+          "type": "PAR3",
+          "ip": "0.0.0.4",
+          "user": "server4",
+          "pwd": "pass3.txt",
+          "productNumber": "PAR3XXX01",
+          "serial": "SE001RIAL24"
+        }
+      ]
+    },
+    {
+    "deviceName": "StoreOnce",
+    "deviceFields": [
+      {
+        "id": 1,
+        "type": "StoreOnce",
+        "ip": "1.0.0.5",
+        "user": "flexcap",
+        "pwd": "adminpass.txt",
+        "serial": "2M273100BW",
+        "tier": "Store-USA"
+      },
+      {
+        "id": 2,
+        "type": "StoreOnce",
+        "ip": "1.0.0.5",
+        "user": "flexcap",
+        "pwd": "adminpass.txt",
+        "serial": "2M273100BW",
+        "tier": "Store-USA"
+      }
+    ]
+  },
+  {
+    "deviceName": "MSA2060",
+    "deviceFields": [
+      {
+        "id": 1,
+        "type": "MSA2060",
+        "ip": "1.0.0.5",
+        "user": "flexcap",
+        "pwd": "password.txt",
+        "serial": "2M273100BW",
+        "tier": "Store-USA"
+      },
+      {
+        "id": 1,
+        "type": "MSA2060",
+        "ip": "1.0.0.5",
+        "user": "flexcap",
+        "pwd": "password.txt",
+        "serial": "2M273100BW",
+        "tier": "Store-USA"
+      }
+    ]
+  }
+  ]
+}

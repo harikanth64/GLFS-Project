@@ -3,13 +3,21 @@ import Par3 from './3Par'
 import StoreOnce from './StoreOnce'
 import Hyperv from './Hyper-v'
 import VMWare from './VMWare'
+import MSA from './MSA'
+import Devices from './Devices'
 
 export const DeviceItems = [
 
+    // {
+    //     link: ".",
+    //     index: 1,
+    //     title: "All Devices",
+    //     component: <Devices />
+    // },
     {
-        link: "3par",
+        link: "par3",
         index: 1,
-        title: "3PAR",
+        title: "PAR3",
         component: <Par3 />
     },
     {
@@ -34,7 +42,7 @@ export const DeviceItems = [
         link: "msa",
         index: 5,
         title: "MSA2060",
-        component: <VMWare />
+        component: <MSA />
     },
     {
         link: "cloudian",

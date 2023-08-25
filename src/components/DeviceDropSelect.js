@@ -22,7 +22,7 @@ function DeviceDropSelect() {
                 <h3>Add New Device</h3>
                 </div>
                 <div class="col-md-8">
-                <DropdownButton variant="success" id="dropdown-menu-align-right" onSelect={handleSelect} title="New ">
+                <DropdownButton variant="success" id="dropdown-menu-align-right" onSelect={handleSelect} title="New (+)">
                     {DeviceItems.map((item, index) => { 
                         return (
                         <Dropdown.Item key={index} as={Link} to={item.link}>{item.title}</Dropdown.Item>
