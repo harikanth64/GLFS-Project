@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLoaderData } from 'react-router-dom'
 import { DeviceItems } from '../routes/Devices/DeviceItems';
-import { getCount } from '../Devices';
 
-function Navbar() {
-  const [devices, setDevices] = useState([]);
+
+
+function Navbar(props) {
+  const devices = props.data
+  console.log(devices);
+  // const [devices, setDevices] = useState([]);
+  // const [post, setPost] = useEffect([]);
+  const [deviceFilter, setDeviceFilter] = useState([])
 
   //   async function GetDeviceData() {
 
@@ -38,33 +43,45 @@ function Navbar() {
   // }, [])
   // console.log(total)
 
-  useEffect(() => {
-    async function getDevices() {
-      const response = await fetch('http://localhost:5000/devices', {
-        method: 'GET',
-        headers: { accept: 'application/json', },
-      });
+  // useEffect(() => {
+  //   async function getDevices() {
+  //     const response = await fetch('http://localhost:5000/', {
+  //       method: 'GET',
+  //       headers: { accept: 'application/json', },
+  //     });
 
-      const data = await response.json();
-      setDevices(data);
+  //     if(!response.ok) throw Error('Please reload the app');
+  //     const data = await response.json();
+  //     setDevices(data);
+  //   }
 
-    }
+  //   function filterDevice() {
+  //     devices.filter(item => item.length > 1).map((device) => (
+  //       device.deviceFields.filter(index => index.id === 1 ).map((filteredLink) => {
+  //           return filteredLink.type;
+  //           // return setDeviceFilter(filteredLink.type);
+  //         })
+  //     ))
+  //   } 
 
-    getDevices();
+  // //   getDevices();
+  //   filterDevice();
 
-  }, []);
+  // }, []);
 
   // console.log(devices[1].deviceName);
   // console.log(DeviceItems[0].title);
 
-  const filteredDevice =  devices.filter(item => item.deviceFields.length > 1).map((device) => (
-      device?.deviceFields.filter(index => index.id === 1 ).map((filteredLink,index) => {
+  const filteredDevice =  devices.filter(item => item.length > 1).map((device) => (
+      device.filter(index => index.id === 1 ).map((filteredLink,index) => {
           return filteredLink.type;
         })
     ))
   
 
-  console.log(filteredDevice[0]);
+  // console.log(filteredDevice[0]);
+
+   
 
   return (
 
@@ -82,7 +99,7 @@ function Navbar() {
       ))} */}
 
       { filteredDevice.map((filteredItem) => (
-        DeviceItems?.filter(match => match.title === filteredItem[0]).map((nav, index) => {
+        DeviceItems.filter(match => match.title === filteredItem[0]).map((nav, index) => {
              return (
                nav.link === "." ?
                  <NavLink key={index} to={nav.link} style={{ background: "white" }} end>

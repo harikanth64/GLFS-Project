@@ -1,6 +1,7 @@
-{  
+{
   "devices": [
     {
+      "id": 1,
       "deviceName": "PAR3",
       "deviceFields": [
         {
@@ -42,50 +43,52 @@
       ]
     },
     {
-    "deviceName": "StoreOnce",
-    "deviceFields": [
-      {
-        "id": 1,
-        "type": "StoreOnce",
-        "ip": "1.0.0.5",
-        "user": "flexcap",
-        "pwd": "adminpass.txt",
-        "serial": "2M273100BW",
-        "tier": "Store-USA"
-      },
-      {
-        "id": 2,
-        "type": "StoreOnce",
-        "ip": "1.0.0.5",
-        "user": "flexcap",
-        "pwd": "adminpass.txt",
-        "serial": "2M273100BW",
-        "tier": "Store-USA"
-      }
-    ]
-  },
-  {
-    "deviceName": "MSA2060",
-    "deviceFields": [
-      {
-        "id": 1,
-        "type": "MSA2060",
-        "ip": "1.0.0.5",
-        "user": "flexcap",
-        "pwd": "password.txt",
-        "serial": "2M273100BW",
-        "tier": "Store-USA"
-      },
-      {
-        "id": 1,
-        "type": "MSA2060",
-        "ip": "1.0.0.5",
-        "user": "flexcap",
-        "pwd": "password.txt",
-        "serial": "2M273100BW",
-        "tier": "Store-USA"
-      }
-    ]
-  }
+      "id": 2,
+      "deviceName": "StoreOnce",
+      "deviceFields": [
+        {
+          "id": 1,
+          "type": "StoreOnce",
+          "ip": "1.0.0.5",
+          "user": "flexcap",
+          "pwd": "adminpass.txt",
+          "serial": "2M273100BW",
+          "tier": "Store-USA"
+        },
+        {
+          "id": 2,
+          "type": "StoreOnce",
+          "ip": "1.0.0.5",
+          "user": "flexcap",
+          "pwd": "adminpass.txt",
+          "serial": "2M273100BW",
+          "tier": "Store-USA"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "deviceName": "MSA2060",
+      "deviceFields": [
+        {
+          "id": 1,
+          "type": "MSA2060",
+          "ip": "1.0.0.5",
+          "user": "flexcap",
+          "pwd": "password.txt",
+          "serial": "2M273100BW",
+          "tier": "Store-USA"
+        },
+        {
+          "id": 2,
+          "type": "MSA2060",
+          "ip": "1.0.0.5",
+          "user": "flexcap",
+          "pwd": "password.txt",
+          "serial": "2M273100BW",
+          "tier": "Store-USA"
+        }
+      ]
+    }
   ]
 }

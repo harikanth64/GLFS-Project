@@ -1,39 +1,74 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
-import  {fetchDevices}  from '../../Devices';
+import { fetchDevices } from '../../Devices';
+import { useLoaderData } from 'react-router-dom';
 
+export function loader() {
 
+    return "Your data is here!"
+
+}
 
 function Par3(props) {
-  const [deviceFields, setDeviceFields] = useState([{ ip: "", user: "", pwd: "", model: "", serial: "" }]);
+  const data = useLoaderData();
+  const [deviceFields, setDeviceFields] = useState([{ id: "", type: "PAR3", ip: "", user: "", pwd: "", model: "", serial: "" }]);
   const [error, setError] = useState(null)
   const host = "http://localhost:5000/par3";
 
-  const handleSubmit = (e,index) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(deviceFields)
-    setError(null);
-    fetchDevices(deviceFields)
-      .then((data)=> {
-        data.map((item,index)=>{
-          setDeviceFields((deviceFields)=>[
-            ...deviceFields,
-            {
-              id: data.index,
-              ip: data.ip,
-              user: data.pwd,
-              model: data.model,
-              serial: data.serial
-            }
-          
-          ])
-        })
-        console.log(data.length)
-      })
-      .catch(err => setError(err))
-      .finally()
+    // console.log(deviceFields)
+    // setError(null);
+    // fetchDevices(deviceFields)
+    //   .then((data)=> {
+    //     data.map((item,index)=>{
+    //       setDeviceFields((deviceFields)=>[
+    //         ...deviceFields,
+    //         {
+    //           id: data.index,
+    //           ip: data.ip,
+    //           user: data.pwd,
+    //           model: data.model,
+    //           serial: data.serial
+    //         }
+
+    //       ])
+    //     })
+    //     console.log(data.length)
+    //   })
+    //   .catch(err => setError(err))
+    //   .finally()
+
+    // console.log(deviceFields);
+
+
+      async function updateDevice() {
+        const response = await fetch('http://localhost:5000/PAR3', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', },
+          body: JSON.stringify(deviceFields),
+        });
+  
+        if(!response.ok) throw Error('Please reload the app');
+        const data = await response.json();
+        setDeviceFields(data);
+        console.log(data)
+      }
+  
+      // function filterDevice() {
+      //   devices.filter(item => item.deviceFields.length > 1).map((device) => (
+      //     device?.deviceFields.filter(index => index.id === 1 ).map((filteredLink) => {
+      //         // return filteredLink.type;
+      //         return setDeviceFilter(filteredLink.type);
+      //       })
+      //   ))
+      // }
+  
+      updateDevice();
+      // filterDevice();
+  
   }
 
 
@@ -43,7 +78,7 @@ function Par3(props) {
 
   const handleChange = (e, index) => {
     const { name, value } = e.target
-    const field = [...deviceFields];
+    const field = [...deviceFields]; 
     field[index][name] = value
     setDeviceFields(field);
     // console.log(index, event.target.name)
@@ -51,12 +86,12 @@ function Par3(props) {
   }
 
   const handleAddNewField = () => {
-    setDeviceFields([...deviceFields, { ip: "", user: deviceFields[0].user, pwd: deviceFields[0].pwd, model: "", serial: "" }])
+    setDeviceFields([...deviceFields, { ip: "", type: "PAR3", user: deviceFields[0].user, pwd: deviceFields[0].pwd, model: "", serial: "" }])
   }
 
 
   const handleRemoveField = (index) => {
-    const field = [...deviceFields]
+    const field = [deviceFields]
     field.splice(index, 1);
     setDeviceFields(field);
   };
@@ -102,7 +137,7 @@ function Par3(props) {
           </div>
         </form>
       </div>
-      
+
 
       {/* <div className='card'>
         <table class="table table-hover">

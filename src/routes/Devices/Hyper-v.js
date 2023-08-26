@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Hyperv() {
+function Hyperv(props) {
   return (
     <div className='container'>
       <h2>Hyper-V</h2>
