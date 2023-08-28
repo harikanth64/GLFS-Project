@@ -11,6 +11,7 @@ import Par3, { loader as a3parPageLoader } from './routes/Devices/3Par';
 import Hyperv from './routes/Devices/Hyper-v';
 import VMWare from './routes/Devices/VMWare';
 import MSA from './routes/Devices/MSA';
+import Error from './components/Error';
 
 
 
@@ -24,7 +25,7 @@ function App() {
             <Route path="user" element={<Test />} />
   
         <Route path="devices" element={<DeviceLayout />} loader={deviceLayoutLoader}>
-          <Route index element={<Devices />} />
+          <Route index element={<Devices />} errorElement={<Error/>} />
           <Route path="par3" element={<Par3 title="3PAR" />} loader={a3parPageLoader} />
           <Route path="storeonce" element={<StoreOnce title="StoreOnce" />} />
           <Route path="hyper-v" element={<Hyperv title="Hyper-V" />} />

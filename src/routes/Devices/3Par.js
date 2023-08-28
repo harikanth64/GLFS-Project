@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { fetchDevices } from '../../Devices';
+import { updateDevice } from '../../DeviceApi';
 import { useLoaderData } from 'react-router-dom';
 
 export function loader() {
@@ -13,7 +13,8 @@ export function loader() {
 function Par3(props) {
   const data = useLoaderData();
   const [deviceFields, setDeviceFields] = useState([{ id: "", type: "PAR3", ip: "", user: "", pwd: "", model: "", serial: "" }]);
-  const [error, setError] = useState(null)
+  const [status, setStatus] = useState("idle")
+  const [error, setError] = useState(null);
   const host = "http://localhost:5000/par3";
 
   const handleSubmit = (e) => {
@@ -44,18 +45,23 @@ function Par3(props) {
     // console.log(deviceFields);
 
 
-      async function updateDevice() {
-        const response = await fetch('http://localhost:5000/PAR3', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', },
-          body: JSON.stringify(deviceFields),
-        });
+      // async function updateDevice() {
+      //   const response = await fetch('http://localhost:5000/PAR3', {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json', },
+      //     body: JSON.stringify(deviceFields),
+      //   });
   
-        if(!response.ok) throw Error('Please reload the app');
-        const data = await response.json();
-        setDeviceFields(data);
-        console.log(data)
-      }
+      //   if(!response.ok) {
+      //     throw { 
+      //       message: "Failed to fetch 3PAR data",
+      //       status: response.status
+      //      }
+      //   }
+      //   const data = await response.json();
+      //   setDeviceFields(data);
+      //   console.log(data)
+      // }
   
       // function filterDevice() {
       //   devices.filter(item => item.deviceFields.length > 1).map((device) => (
@@ -66,8 +72,20 @@ function Par3(props) {
       //   ))
       // }
   
-      updateDevice();
+      // updateDevice();
       // filterDevice();
+
+      // const jsonField = JSON.stringify({...deviceFields})
+      setStatus("submitting");
+      setError(null);
+      updateDevice(deviceFields)
+          .then(data => {
+            data.map((field) => {
+              setDeviceFields([...deviceFields], { ip: field.index, type: "PAR3", user: field.user, pwd: field.pwd, model: field.model, serial: field.serial })
+            }) 
+          })
+          .catch(err => setError(err))
+          .finally(() => setStatus("idle"));
   
   }
 
@@ -91,7 +109,7 @@ function Par3(props) {
 
 
   const handleRemoveField = (index) => {
-    const field = [deviceFields]
+    const field = [...deviceFields]
     field.splice(index, 1);
     setDeviceFields(field);
   };
@@ -133,7 +151,9 @@ function Par3(props) {
             }
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">Save Changes</button>
+            <button type="submit" className="btn btn-primary" disabled={status === "submitting"}>
+              {status === "submitting"? "Saving...": "Save Changes"}
+            </button>
           </div>
         </form>
       </div>
