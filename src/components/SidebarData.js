@@ -23,7 +23,7 @@ export const SidebarData = [
         path: "test"
     },
     {
-        name: "Usar",
+        name: "User",
         icon: <FaRegUserCircle />,
         path: "user"
     }

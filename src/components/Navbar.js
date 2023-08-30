@@ -6,7 +6,7 @@ import { DeviceItems } from '../routes/Devices/DeviceItems';
 
 function Navbar(props) {
   const devices = props.data
-  console.log(devices);
+  // console.log(devices);
   // const [devices, setDevices] = useState([]);
   // const [post, setPost] = useEffect([]);
   const [deviceFilter, setDeviceFilter] = useState([])

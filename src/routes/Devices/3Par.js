@@ -2,109 +2,103 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { updateDevice } from '../../DeviceApi';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Form, useActionData } from 'react-router-dom';
 
-export function loader() {
+export async function action({ request }) {
+  const formData = await request.formData()
+  const data = Object.fromEntries(formData);
 
-    return "Your data is here!"
+  // formData.forEach(element => {
+  //   element.append(formData, JSON.stringify(element))
+  // });
 
+  // console.log(formData.getAll(formData))
+
+  // const lineItemData = {
+  //   id: "",
+  //   type: "PAR3",
+  //   ip: formData.get('ip'),
+  //   user: formData.get('user'),
+  //   pwd: formData.get('pwd'),
+  //   model: formData.get('model'),
+  //   serial: formData.get('serial'),
+  // }
+
+
+
+  // console.log(data);
+  return null;
 }
+
 
 function Par3(props) {
   const data = useLoaderData();
-  const [deviceFields, setDeviceFields] = useState([{ id: "", type: "PAR3", ip: "", user: "", pwd: "", model: "", serial: "" }]);
+  const [deviceFields, setDeviceFields] = useState([{ type: "PAR3", ip: "", user: "", pwd: "", model: "", serial: "" }]);
   const [status, setStatus] = useState("idle")
   const [error, setError] = useState(null);
   const host = "http://localhost:5000/par3";
 
+  const actionData = useActionData();
+  // console.log(actionData);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(deviceFields)
-    // setError(null);
-    // fetchDevices(deviceFields)
-    //   .then((data)=> {
-    //     data.map((item,index)=>{
-    //       setDeviceFields((deviceFields)=>[
-    //         ...deviceFields,
-    //         {
-    //           id: data.index,
-    //           ip: data.ip,
-    //           user: data.pwd,
-    //           model: data.model,
-    //           serial: data.serial
-    //         }
+    console.log(deviceFields)
+    const obj = {};
+    for (let index = 0; index < deviceFields.length; index++) {
+      obj[index] = deviceFields[index];
+    }
+    console.log(obj)
+    setStatus("submitting");
+    setError(null);
 
-    //       ])
-    //     })
-    //     console.log(data.length)
+    const uploadJS = async () => {
+      try {
+        const res = await Promise.all(deviceFields.map(async element => {
+          await updateDevice(element)
+            // .then(data => console.log(data))
+            // .catch(err => setError(err))
+            // .finally(() => setStatus("idle"))
+        }));
+        // const data = res.map((res)=> res.data);
+        // console.log(`calling ${data}`)
+      } catch {
+        throw Error("Promise Failed!")
+      }
+    };
+    uploadJS()
+
+    // const uploadResult = Promise.all(promises).then((data) => {
+    //   console.log(data)
+    // })
+
+    // updateDevice(...deviceFields)
+    // .then(data => console.log(data))
+    // .then(data => {
+    //   data.map((field) => {
+    //     setDeviceFields([...deviceFields], { type: "PAR3", ip: field.ip, user: field.user, pwd: field.pwd, model: field.model, serial: field.serial })
     //   })
-    //   .catch(err => setError(err))
-    //   .finally()
+    // })
+    // .catch(err => setError(err))
+    // .finally(() => setStatus("idle"));
 
-    // console.log(deviceFields);
 
-
-      // async function updateDevice() {
-      //   const response = await fetch('http://localhost:5000/PAR3', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json', },
-      //     body: JSON.stringify(deviceFields),
-      //   });
-  
-      //   if(!response.ok) {
-      //     throw { 
-      //       message: "Failed to fetch 3PAR data",
-      //       status: response.status
-      //      }
-      //   }
-      //   const data = await response.json();
-      //   setDeviceFields(data);
-      //   console.log(data)
-      // }
-  
-      // function filterDevice() {
-      //   devices.filter(item => item.deviceFields.length > 1).map((device) => (
-      //     device?.deviceFields.filter(index => index.id === 1 ).map((filteredLink) => {
-      //         // return filteredLink.type;
-      //         return setDeviceFilter(filteredLink.type);
-      //       })
-      //   ))
-      // }
-  
-      // updateDevice();
-      // filterDevice();
-
-      // const jsonField = JSON.stringify({...deviceFields})
-      setStatus("submitting");
-      setError(null);
-      updateDevice(deviceFields)
-          .then(data => {
-            data.map((field) => {
-              setDeviceFields([...deviceFields], { ip: field.index, type: "PAR3", user: field.user, pwd: field.pwd, model: field.model, serial: field.serial })
-            }) 
-          })
-          .catch(err => setError(err))
-          .finally(() => setStatus("idle"));
-  
   }
-
-
-
-
 
 
   const handleChange = (e, index) => {
     const { name, value } = e.target
-    const field = [...deviceFields]; 
+    const field = [...deviceFields];
     field[index][name] = value
     setDeviceFields(field);
+    // console.log(JSON.stringify(field));
     // console.log(index, event.target.name)
     // console.log(field[1][name]);
   }
 
   const handleAddNewField = () => {
-    setDeviceFields([...deviceFields, { ip: "", type: "PAR3", user: deviceFields[0].user, pwd: deviceFields[0].pwd, model: "", serial: "" }])
+    setDeviceFields([...deviceFields, { type: "PAR3", ip: "", user: deviceFields[0].user, pwd: deviceFields[0].pwd, model: "", serial: "" }])
   }
 
 
@@ -114,11 +108,28 @@ function Par3(props) {
     setDeviceFields(field);
   };
 
+  function lineItem() {
+    return (deviceFields.map((eachField, index) => (
+      <div className="row my-2" key={index}>
+        <div className="col-md-2 gx-3 gy-0"><input type="text" name="ip" value={eachField.ip} className="form-control" id="ip" onChange={(e) => handleChange(e, index)} /></div>
+        <div className="col-md-2 gx-3 gy-0"><input type="text" name="user" value={eachField.user} className="form-control" id="user" onChange={(e) => handleChange(e, index)} /></div>
+        <div className="col-md-2 gx-3 gy-0"><input type="test" name="pwd" value={eachField.pwd} className="form-control" id="pwd" onChange={(e) => handleChange(e, index)} /></div>
+        <div className="col-md-2 gx-3 gy-0"><input type="text" name="model" value={eachField.model} className="form-control" id="model" onChange={(e) => handleChange(e, index)} /></div>
+        <div className="col-md-2 gx-3 gy-0"><input type="text" name="serial" value={eachField.serial} className="form-control" id="serial" onChange={(e) => handleChange(e, index)} /></div>
+        {deviceFields.length > 1 &&
+          (
+            <div className='col-auto align-self-end gy-0'>
+              <button type="button" class="btn btn-light" title="Delete" onClick={() => handleRemoveField(index)}><FontAwesomeIcon icon={faXmark} /></button>
+            </div>
+          )}
+      </div>
+    )))
+  }
 
   return (
     <>
       <div className='card p-4'>
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <Form method="post" className="row g-3" onSubmit={handleSubmit}>
           <div className='gy-0'><h4>{props.title}</h4></div>
 
           <div className="row g-3 mt-0">
@@ -127,73 +138,17 @@ function Par3(props) {
             <div className="col-md-2"><label for="pwd" className="form-label">Password File</label></div>
             <div className="col-md-2"><label for="prod" className="form-label">Product#</label></div>
             <div className="col-md-2 gx-0"><label for="srl" className="form-label">Serial#</label></div>
-
-            {
-              deviceFields.map((eachField, index) => (
-                <div className="row my-2" key={index}>
-                  <div className="col-md-2 gx-3 gy-0"><input type="text" name="ip" value={eachField.ip} className="form-control" id="ip" onChange={(e) => handleChange(e, index)} /></div>
-                  <div className="col-md-2 gx-3 gy-0"><input type="text" name="user" value={eachField.user} className="form-control" id="user" onChange={(e) => handleChange(e, index)} /></div>
-                  <div className="col-md-2 gx-3 gy-0"><input type="test" name="pwd" value={eachField.pwd} className="form-control" id="pwd" onChange={(e) => handleChange(e, index)} /></div>
-                  <div className="col-md-2 gx-3 gy-0"><input type="text" name="model" value={eachField.model} className="form-control" id="model" onChange={(e) => handleChange(e, index)} /></div>
-                  <div className="col-md-2 gx-3 gy-0"><input type="text" name="serial" value={eachField.serial} className="form-control" id="serial" onChange={(e) => handleChange(e, index)} /></div>
-
-                  <div className='col-auto ms-4 align-self-end gy-0'>
-                    <button type="button" class="btn btn-light btn-font-size" title="Add New" onClick={handleAddNewField}><FontAwesomeIcon icon={faPlus} /></button>
-                  </div>
-                  {deviceFields.length > 1 &&
-                    (
-                      <div className='col-auto align-self-end gy-0'>
-                        <button type="button" class="btn btn-light" title="Delete" onClick={() => handleRemoveField(index)}><FontAwesomeIcon icon={faXmark} /></button>
-                      </div>
-                    )}
-                </div>
-              ))
-            }
+            {lineItem()}
           </div>
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={status === "submitting"}>
-              {status === "submitting"? "Saving...": "Save Changes"}
-            </button>
+          <div className="col-4" >
+            <button type="button" className="btn btn-primary m-2" onClick={handleAddNewField}>Add More +</button>
+            {/* <button type="submit" className="btn btn-primary" disabled={status === "submitting"} on={handleSubmit}>
+              {status === "submitting" ? "Saving..." : "Save"}
+            </button> */}
+            <button type="submit" className="btn btn-primary" on={handleSubmit}>Save</button>
           </div>
-        </form>
-      </div>
-
-
-      {/* <div className='card'>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">{}</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            {
-              json.map((item)=> { (
-            <tr key={item.id}>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr> )
-                    })
-                  }
-          </tbody>
-        </table>
-      </div> */}
+        </Form >
+      </div >
     </>
   )
 }
