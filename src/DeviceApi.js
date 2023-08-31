@@ -1,3 +1,5 @@
+import { useFetcher } from 'react-router-dom';
+
 
 export async function get3ParData() {
       const response = await fetch('http://localhost:5001/PAR3', {
@@ -14,6 +16,25 @@ export async function get3ParData() {
       const get3ParData = await response.json();
       return get3ParData;
 }
+
+
+// Fetch data from all device to list in talbe 
+// export async function getData(device) {
+//   const response = await fetch(`http://localhost:5001/${device}`, {
+//     method: 'GET',
+//     headers: { 'Content-Type': 'application/json' },
+//   });
+
+//   if(!response.ok) {
+//     throw { 
+//       message: "Failed to fetch 3PAR data",
+//       status: response.status
+//      }
+//   }
+//   const data = await response.json();
+//   return data;
+// }
+
 
 export async function getStoreOnceData() {
   const response = await fetch('http://localhost:5001/StoreOnce', {

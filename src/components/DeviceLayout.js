@@ -32,12 +32,12 @@ function DeviceLayout() {
 
   
   return (
-    <>
+    <div>
       {/* Using Relative Paths */}
       <Navbar data={[...dataSend]}/>
       <DeviceDropSelect />
       <Outlet />
-    </>
+    </div>
   )
 }
 

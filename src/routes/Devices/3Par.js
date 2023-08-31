@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { updateDevice } from '../../DeviceApi';
-import { useLoaderData, Form, useActionData } from 'react-router-dom';
+import { useLoaderData, Form, useActionData, useFetcher, useNavigate } from 'react-router-dom';
 
 export async function action({ request }) {
   const formData = await request.formData()
@@ -26,8 +26,8 @@ export async function action({ request }) {
 
 
 
-  // console.log(data);
-  return null;
+   console.log(data);
+  return data;
 }
 
 
@@ -37,29 +37,25 @@ function Par3(props) {
   const [status, setStatus] = useState("idle")
   const [error, setError] = useState(null);
   const host = "http://localhost:5000/par3";
-
-  const actionData = useActionData();
-  // console.log(actionData);
+  const fetcher = useFetcher();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log(deviceFields)
-    const obj = {};
-    for (let index = 0; index < deviceFields.length; index++) {
-      obj[index] = deviceFields[index];
-    }
-    console.log(obj)
-    setStatus("submitting");
-    setError(null);
 
     const uploadJS = async () => {
       try {
         const res = await Promise.all(deviceFields.map(async element => {
           await updateDevice(element)
-            // .then(data => console.log(data))
+             .then(data => { 
+                navigate("dataTable", {replace: true})
+                console.log(data)
+             })
             // .catch(err => setError(err))
             // .finally(() => setStatus("idle"))
+
         }));
         // const data = res.map((res)=> res.data);
         // console.log(`calling ${data}`)
@@ -69,19 +65,8 @@ function Par3(props) {
     };
     uploadJS()
 
-    // const uploadResult = Promise.all(promises).then((data) => {
-    //   console.log(data)
-    // })
 
-    // updateDevice(...deviceFields)
-    // .then(data => console.log(data))
-    // .then(data => {
-    //   data.map((field) => {
-    //     setDeviceFields([...deviceFields], { type: "PAR3", ip: field.ip, user: field.user, pwd: field.pwd, model: field.model, serial: field.serial })
-    //   })
-    // })
-    // .catch(err => setError(err))
-    // .finally(() => setStatus("idle"));
+
 
 
   }
