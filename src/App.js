@@ -29,7 +29,7 @@ function App() {
         <Route path="devices" element={<DeviceLayout />} loader={deviceLayoutLoader}>
           <Route index element={<Devices />} errorElement={<Error/>} />
           <Route path="par3" element={<Par3 title="3PAR" />} action={a3parAction}/>
-          <Route path="par3/dataTable" element={<DataTable device="PAR3"/>}/>
+          {/* <Route path="par3/dataTable" element={<DataTable device="PAR3"/>}/> */}
           <Route path="storeonce" element={<StoreOnce device="StoreOnce" />} />
           <Route path="storeonce/dataTable" element={<DataTable title="StoreOnce"/>} />
           <Route path="hyper-v" element={<Hyperv title="Hyper-V" />} />

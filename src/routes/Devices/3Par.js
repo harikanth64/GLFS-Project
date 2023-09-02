@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { updateDevice } from '../../DeviceApi';
 import { useLoaderData, Form, useActionData, useFetcher, useNavigate } from 'react-router-dom';
+import { TbCloudFog } from 'react-icons/tb';
+import DataTable from '../../components/DataTable';
 
-export async function action({ request }) {
+export async function action({ params, request }) {
   const formData = await request.formData()
-  const data = Object.fromEntries(formData);
+  const formObj = Object.fromEntries(formData);
+
+
+  // console.log(obj.request.)
 
   // formData.forEach(element => {
   //   element.append(formData, JSON.stringify(element))
@@ -26,8 +31,10 @@ export async function action({ request }) {
 
 
 
-   console.log(data);
-  return data;
+  //  console.log(`Actions data: ${data}`);
+  // return [...formData]
+  return null;
+  
 }
 
 
@@ -39,31 +46,65 @@ function Par3(props) {
   const host = "http://localhost:5000/par3";
   const fetcher = useFetcher();
   const navigate = useNavigate();
+  const actionData = useActionData();
+  const navigateRef = useRef(navigate);
+
+  // console.log(actionData);
+  const actionJ = JSON.stringify(actionData);
+  console.log(actionJ);
+
+  // const obj = {};
+  // actionJ.forEach((elem, i) => {
+  //   obj[i] = elem;
+  // });
+  // console.log(obj);
+
+  useEffect(() => {
+    navigateRef.current = navigate;
+  }, [navigate]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log(deviceFields)
 
-    const uploadJS = async () => {
-      try {
-        const res = await Promise.all(deviceFields.map(async element => {
-          await updateDevice(element)
-             .then(data => { 
-                navigate("dataTable", {replace: true})
-                console.log(data)
-             })
-            // .catch(err => setError(err))
-            // .finally(() => setStatus("idle"))
+    // const uploadJS = async () => {
+    //   try {
+    //     const res = await Promise.all(deviceFields.map(async element => {
+    //         await updateDevice(element)
+    //          .then(data => { 
+    //             navigate("dataTable")
+    //             console.log(data)
+    //          })
 
-        }));
-        // const data = res.map((res)=> res.data);
-        // console.log(`calling ${data}`)
-      } catch {
-        throw Error("Promise Failed!")
-      }
-    };
-    uploadJS()
+    //         // .catch(err => setError(err))
+    //         // .finally(() => setStatus("idle"))
+
+    //     }));
+    //     // const data = res.map((res)=> res.data);
+    //     // console.log(`calling ${data}`)
+    //   } catch {
+    //     throw Error("Promise Failed!")
+    //   }
+    // };
+    // uploadJS()
+
+    try {
+      setStatus("submitting");
+      setError(null);
+      deviceFields.map(element => {
+        updateDevice(element)
+          .then(data => {
+            if (data) {
+                // navigate("dataTable");
+          }})
+          .catch(err => setError(err))
+          .finally(() => setStatus("idle"))
+      })
+    } catch {
+      throw Error("Promise failed!")
+    }
 
 
 
@@ -114,7 +155,7 @@ function Par3(props) {
   return (
     <>
       <div className='card p-4'>
-        <Form method="post" className="row g-3" onSubmit={handleSubmit}>
+        <Form className="row g-3" method="POST" onSubmit={handleSubmit}>
           <div className='gy-0'><h4>{props.title}</h4></div>
 
           <div className="row g-3 mt-0">
@@ -134,6 +175,11 @@ function Par3(props) {
           </div>
         </Form >
       </div >
+      <br />
+      <div className='card p-4'>
+        <DataTable device="PAR3"/>
+
+      </div>
     </>
   )
 }
